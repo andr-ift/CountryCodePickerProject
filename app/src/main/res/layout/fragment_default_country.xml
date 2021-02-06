@@ -88,7 +88,15 @@
                                     <com.hbb20.CountryCodePicker
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        app:ccp_defaultNameCode="US" />
+                                        app:ccp_textSize="18sp"
+                                        app:ccp_defaultNameCode="UK"
+                                        app:ccp_showArrow="false"
+                                        app:ccp_showNameCode="false"
+                                        app:ccpDialog_showTitle="false"
+                                        app:ccpDialog_showCloseIcon="false"
+                                        app:ccpDialog_allowSearch="false"
+                                        app:ccpDialog_showFastScroller="false"
+                                        app:ccpDialog_showNameCode="false" />
 
                                     <EditText
                                         android:layout_width="match_parent"
@@ -97,9 +105,13 @@
                                         android:hint="phone"
                                         android:inputType="phone"
                                         android:singleLine="true" />
+
                                 </LinearLayout>
+
                             </LinearLayout>
+
                         </RelativeLayout>
+
                     </LinearLayout>
 
                     <LinearLayout

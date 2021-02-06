@@ -54,6 +54,7 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'io.michaelrocks:libphonenumber-android:8.12.17'
     implementation "androidx.cardview:cardview:1.0.0"
+    implementation "com.google.android.material:material:1.2.1"
 }
 
 apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/installv1.gradle'

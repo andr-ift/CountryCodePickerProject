@@ -9,6 +9,7 @@ import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -24,6 +25,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.futuremind.recyclerviewfastscroll.FastScroller;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import java.lang.reflect.Field;
 import java.util.List;
@@ -36,7 +38,7 @@ class CountryCodeDialog {
             sEditorField,
             sCursorDrawableField,
             sCursorDrawableResourceField;
-    static Dialog dialog;
+    static BottomSheetDialog dialog;
     static Context context;
 
     static {
@@ -78,13 +80,20 @@ class CountryCodeDialog {
     public static void
     openCountryCodeDialog(final CountryCodePicker codePicker, final String countryNameCode) {
         context = codePicker.getContext();
-        dialog = new Dialog(context);
+        dialog = new BottomSheetDialog(context);
         codePicker.refreshCustomMasterList();
         codePicker.refreshPreferredCountries();
         List<CCPCountry> masterCountries = CCPCountry.getCustomMasterCountryList(context, codePicker);
+
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.getWindow().setContentView(R.layout.layout_picker_dialog);
         dialog.getWindow().setBackgroundDrawable(ContextCompat.getDrawable(context, android.R.color.transparent));
+
+        WindowManager.LayoutParams wlp = dialog.getWindow().getAttributes();
+        wlp.gravity = Gravity.CENTER;
+        wlp.flags &= ~WindowManager.LayoutParams.FLAG_BLUR_BEHIND;
+        dialog.getWindow().setAttributes(wlp);
+        dialog.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
 
         //keyboard
         if (codePicker.isSearchAllowed() && codePicker.isDialogKeyboardAutoPopup()) {
@@ -92,7 +101,6 @@ class CountryCodeDialog {
         } else {
             dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         }
-
 
         //dialog views
         RecyclerView recyclerView_countryDialog = (RecyclerView) dialog.findViewById(R.id.recycler_countryDialog);
